@@ -155,9 +155,9 @@ def to_human_homolog(gene_ids, species, type="symbol"):
     )
 
     homo_ids = gene_to_homo.reindex(gene_ids)
-    human_gene_ids = homo_to_human_gene.reindex(homo_ids)
+    human_gene_ids = homo_to_human_gene.reindex(homo_ids.index)
 
-    return human_gene_ids
+    return human_gene_ids.index
 
 
 def simple_fisher(input_list, gset_group_id, background_list=None):

@@ -26,6 +26,7 @@ def main():
     gene_scores = list(gene_scores_dict.values())
 
     gene_id_type = guess_gene_id_type(list(gene_ids)[:5])
+
     if gene_id_type != 'symbol':
         gene_ids = convert_gene_ids(gene_ids, gene_id_type, 'symbol', species)
 
@@ -33,13 +34,17 @@ def main():
         pass
     elif species == "mouse":
         gene_ids = zgsea.to_human_homolog(gene_ids, "mouse")
+        # problem is that gene_ids is NAN after this
     else:
-        raise ValueError()
+       raise ValueError()
+
 
     if use_abs:
         input_list = np.array(gene_ids)[np.abs(np.array(gene_scores)) >= threshold]
     else:
         input_list = np.array(gene_ids)[np.array(gene_scores) >= threshold]
+
+    print(input_list)
 
     gn.add_result(
         f"""\
